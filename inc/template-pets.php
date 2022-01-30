@@ -29,6 +29,9 @@ get_header(); ?>
       <th>Hobby</th>
       <th>Favorite Color</th>
       <th>Favorite Food</th>
+      <?php if(current_user_can('administrator')){ ?>
+        <th>Delete</th>
+      <?php } ?>
     </tr>
     <?php
       foreach($getPets->pets as $pet){ ?>
@@ -40,6 +43,15 @@ get_header(); ?>
           <td><?php echo $pet->favhobby; ?></td>
           <td><?php echo $pet->favcolor; ?></td>
           <td><?php echo $pet->favfood; ?></td>
+          <?php if(current_user_can('administrator')){ ?>
+            <td style="text-align: center;">
+              <form action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="POST" >
+                <input type="hidden" name="action" value="deletepet">
+                <input type="hidden" name="idtodelete" value="<?php echo $pet->id; ?>">
+                <button class="delete-pet-button">X</button>
+              </form>
+            </td>
+          <?php } ?>
         </tr>
       <?php } 
     ?>
