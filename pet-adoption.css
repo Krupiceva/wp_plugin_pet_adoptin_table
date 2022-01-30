@@ -1,0 +1,52 @@
+.pet-adoption-table {
+  margin-top: 20px;
+  width: 100%;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.pet-adoption-table th {
+  font-weight: bold;
+  color: #fff;
+  background-color: #4d4d4d;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+  text-align: left;
+  padding: 12px 15px;
+  font-size: 12px;
+}
+
+.pet-adoption-table td {
+  border: 1px solid #ddd;
+  padding: 12px 15px;
+  font-size: 12px;
+}
+
+.pet-adoption-table tr:nth-child(odd) td {
+  background-color: #f1f1f1;
+}
+
+.delete-pet-button {
+  border: none;
+  background-color: #e2e2e2;
+  color: red;
+  transform: scaleX(1.2);
+  font-weight: bold;
+  padding: 3px 5px;
+  cursor: pointer;
+  opacity: 0.65;
+}
+
+.delete-pet-button:hover {
+  opacity: 1;
+}
+
+.create-pet-form {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: rgb(240, 240, 240);
+  border: 1px solid #ddd;
+}
+
+.create-pet-form p {
+  margin-bottom: 15px !important;
+}
