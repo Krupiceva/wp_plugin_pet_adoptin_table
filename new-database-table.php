@@ -19,6 +19,9 @@ class PetAdoptionTablePlugin {
     //add_action('admin_head', array($this, 'populateFast'));
     add_action('wp_enqueue_scripts', array($this, 'loadAssets'));
     add_filter('template_include', array($this, 'loadTemplate'), 99);
+    //This is the hook that is created from POST request from template file
+    add_action('admin_post_createpet', array($this, 'createPet'));
+    add_action('admin_post_nopriv_createpet', array($this, 'createPet'));
   }
 
   function onActivate() {
@@ -39,6 +42,18 @@ class PetAdoptionTablePlugin {
   function onAdminRefresh() {
     global $wpdb;
     $wpdb->insert($this->tablename, generatePet());
+  }
+
+  function createPet(){
+    if(current_user_can('administrator')){
+      $pet = generatePet();
+      $pet['petname'] = sanitize_text_field($_POST['incomingpetname']);
+      global $wpdb;
+      $wpdb->insert($this->tablename, $pet);
+      wp_redirect(site_url('/pet-adoption'));
+    } else {
+      wp_redirect(site_url());
+    }
   }
 
   function loadAssets() {

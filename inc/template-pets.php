@@ -44,6 +44,19 @@ get_header(); ?>
       <?php } 
     ?>
   </table>
+
+  <?php
+  //When there will be post request to admin-post.php with name of "action", WP will create special hook with name of "createpet", then
+  //we can hook to that in main plugin file
+    if(current_user_can('administrator')){ ?>
+      <form action="<?php echo esc_url(admin_url('admin-post.php')); ?>" class="create-pet-form" method="POST">
+        <p>Enter just the name for a new pet. Other details will be randomly generated.</p>
+        <input type="hidden" name="action" value="createpet">
+        <input type="text" name="incomingpetname" placeholder="name...">
+        <button>Add Pet</button>
+      </form>
+    <?php }
+  ?>
   
 </div>
 
