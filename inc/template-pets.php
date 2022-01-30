@@ -1,5 +1,8 @@
 <?php
 
+require_once plugin_dir_path( __FILE__ ) . 'getPets.php';
+$getPets = new GetPets();
+
 get_header(); ?>
 
 <div class="page-banner">
@@ -14,14 +17,8 @@ get_header(); ?>
 
 <div class="container container--narrow page-section">
 
-  <p>This page took <strong><?php echo timer_stop();?></strong> seconds to prepare. Found <strong>x</strong> results (showing the first x).</p>
+  <p>This page took <strong><?php echo timer_stop();?></strong> seconds to prepare. Found <strong><?php echo $getPets->count ?></strong> results (showing the first <?php echo count($getPets->pets) ?>).</p>
 
-  <?php 
-    global $wpdb;
-    $tablename = $wpdb->prefix . 'pets';
-    $ourQuery = $wpdb->prepare("SELECT * FROM $tablename LIMIT 100");
-    $pets = $wpdb->get_results($ourQuery);
-  ?>
 
   <table class="pet-adoption-table">
     <tr>
@@ -34,7 +31,7 @@ get_header(); ?>
       <th>Favorite Food</th>
     </tr>
     <?php
-      foreach($pets as $pet){ ?>
+      foreach($getPets->pets as $pet){ ?>
         <tr>
           <td><?php echo $pet->petname; ?></td>
           <td><?php echo $pet->species; ?></td>
